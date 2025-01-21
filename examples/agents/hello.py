@@ -40,7 +40,22 @@ def main(host: str, port: int):
         print(colored("No available models. Exiting.", "red"))
         return
     else:
-        selected_model = available_models[0]
+        print("Available models:")
+        for idx, model in enumerate(available_models, 1):
+            print(f"{idx}. {model}")
+
+        # Prompt user for model selection
+        while True:
+            try:
+                selection = int(input("Select a model by number: "))
+                if 1 <= selection <= len(available_models):
+                    selected_model = available_models[selection - 1]
+                    break
+                else:
+                    print("Invalid selection. Please enter a number from the list.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+
         print(f"Using model: {selected_model}")
 
     agent_config = AgentConfig(
